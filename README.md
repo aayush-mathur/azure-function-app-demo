@@ -14,6 +14,8 @@ A full-stack serverless demonstration built with React frontend and Azure Functi
 - **Frontend**: https://brave-meadow-08cbc820f.2.azurestaticapps.net
 - **Backend API**: https://func-app-demo-8685.azurewebsites.net
 
+> **Note**: Frontend deployment requires the `AZURE_STATIC_WEB_APPS_API_TOKEN` GitHub secret to be configured.
+
 ## Functions Included
 
 ### HTTP Triggered Functions
