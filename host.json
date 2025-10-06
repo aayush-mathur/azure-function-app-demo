@@ -12,12 +12,5 @@
     "id": "Microsoft.Azure.Functions.ExtensionBundle",
     "version": "[4.*, 5.0.0)"
   },
-  "functionTimeout": "00:05:00",
-  "cors": {
-    "allowedOrigins": [
-      "http://localhost:3000",
-      "https://brave-meadow-08cbc820f.2.azurestaticapps.net"
-    ],
-    "supportCredentials": false
-  }
+  "functionTimeout": "00:05:00"
 }

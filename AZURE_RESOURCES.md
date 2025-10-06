@@ -33,9 +33,11 @@
   - Add this as `AZURE_STATIC_WEB_APPS_API_TOKEN` secret in GitHub repository settings
 
 ## CORS Configuration
-- **Function App CORS**: Configured to allow requests from:
+- **Function App CORS**: Configured at Azure level to allow requests from:
   - `http://localhost:3000` (local development)
   - `https://brave-meadow-08cbc820f.2.azurestaticapps.net` (production)
+- **Configuration Method**: Azure CLI (`az functionapp cors add`) - not host.json
+- **Status**: ✅ Properly configured for cross-origin requests
 
 ## Clean Up Commands
 To delete all resources when done:
