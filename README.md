@@ -35,9 +35,122 @@ A demonstration Azure Function App built with Node.js and Azure Functions v4.
    - Example: `/api/stock/search/Microsoft` or `/api/stock/search?q=Tesla`
 
 ### Timer Triggered Functions
-1. **timerTrigger** - Scheduled function
+1. **timerTrigger** - Scheduled function (commented out for local development)
    - Schedule: Every 5 minutes
    - Logs execution information
+
+## Development Challenges & Solutions
+
+### 🔧 Challenge 1: Azure Functions v4 Project Structure
+**Problem**: Initially created functions in a `src/functions/` directory, but Azure Functions v4 expects function files in the root directory.
+
+**Error**: `Worker was unable to load entry point "index.js": File does not exist`
+
+**Solution**: 
+- Moved all function files to the root directory
+- Created `index.js` as the main entry point that imports all function modules
+- Updated project structure to match Azure Functions v4 requirements
+
+### 🔧 Challenge 2: Timer Trigger Storage Issues in Local Development
+**Problem**: Timer triggers require Azure Storage for scheduling, causing errors in local development.
+
+**Error**: `Microsoft.Azure.WebJobs.Extensions.Timers.Storage: Could not create BlobContainerClient for ScheduleMonitor`
+
+**Solution**: 
+- Commented out timer trigger for local development
+- Updated `local.settings.json` with `"AzureWebJobsStorage": "UseDevelopmentStorage=true"`
+- Timer function works fine in Azure deployment where storage is properly configured
+
+### 🔧 Challenge 3: GitHub Actions Workflow Failure
+**Problem**: GitHub Actions workflow was failing during the test phase.
+
+**Error**: `Error: no test specified` with exit code 1
+
+**Solution**: 
+- Updated `package.json` test script from `"test": "echo \"Error: no test specified\" && exit 1"` 
+- Changed to `"test": "echo \"No tests specified - skipping test phase\""` (exit code 0)
+- The issue was the `exit 1` command causing the workflow to fail, not the echo message
+
+### 🔧 Challenge 4: Azure Functions Runtime Configuration
+**Problem**: Initial `host.json` configuration included unnecessary custom handler settings.
+
+**Solution**: 
+- Removed `customHandler` configuration from `host.json`
+- Used standard Node.js programming model for Azure Functions v4
+- Kept essential configurations: logging, extension bundle, and timeout settings
+
+### 🔧 Challenge 5: GitHub Actions Environment Mismatch
+**Problem**: Workflow template was configured for Windows but Azure Function App was created on Linux.
+
+**Solution**: 
+- Changed GitHub Actions runner from `windows-latest` to `ubuntu-latest`
+- Updated shell commands from `pwsh` to `bash`
+- Ensured consistency between development environment and deployment target
+
+## Tech Stack & Dependencies
+
+### Azure Resources
+- **Resource Group**: `rg-function-app-demo`
+- **Function App**: `func-app-demo-8685` (Linux, Node.js 20, Consumption Plan)
+- **Storage Account**: `stfunctionappdemo9494`
+- **Application Insights**: Enabled for monitoring
+
+### Node.js Dependencies
+- `@azure/functions` - Azure Functions Node.js library v4
+- `yahoo-finance2` - Real-time stock market data
+- `azure-functions-core-tools` - Local development tools
+
+### Development Tools
+- Azure CLI - Resource management and deployment
+- GitHub Actions - CI/CD pipeline
+- VS Code - Development environment
+
+## Deployment Process
+
+### 1. Manual Azure Resources Creation
+```bash
+# Create resource group
+az group create --name rg-function-app-demo --location eastus
+
+# Create storage account
+az storage account create --name stfunctionappdemo9494 --location eastus --resource-group rg-function-app-demo --sku Standard_LRS
+
+# Create function app
+az functionapp create --resource-group rg-function-app-demo --consumption-plan-location eastus --runtime node --runtime-version 20 --functions-version 4 --name func-app-demo-8685 --storage-account stfunctionappdemo9494 --os-type Linux
+```
+
+### 2. GitHub Actions CI/CD Pipeline
+- **Trigger**: Push to `main` branch
+- **Runner**: Ubuntu (Linux) to match Azure Function App OS
+- **Steps**: 
+  1. Checkout code
+  2. Setup Node.js 20
+  3. Install dependencies (`npm install`)
+  4. Run tests (skipped - no tests defined)
+  5. Deploy to Azure using publish profile
+
+### 3. Publish Profile Configuration
+```bash
+# Get publish profile for GitHub secrets
+az functionapp deployment list-publishing-profiles --name func-app-demo-8685 --resource-group rg-function-app-demo --xml
+```
+
+## Project Structure
+
+```
+azure-function-app-demo/
+├── .gitignore                 # Git ignore rules
+├── AZURE_RESOURCES.md        # Azure resources documentation
+├── README.md                 # This file
+├── apiEndpoints.js           # REST API demo functions
+├── demoFunctions.js          # Basic HTTP and timer functions
+├── stockFunctions.js         # Stock market data functions
+├── host.json                 # Function app configuration
+├── index.js                  # Main entry point
+├── local.settings.json       # Local development settings
+├── package.json              # Node.js dependencies and scripts
+└── package-lock.json         # Dependency lock file
+```
 
 ## Local Development
 
@@ -96,3 +209,45 @@ Test the deployed function at:
 - HTTP Trigger: https://func-app-demo-8685.azurewebsites.net/api/httpTrigger?name=Azure
 - Stock Data: https://func-app-demo-8685.azurewebsites.net/api/stock/AAPL
 - Stock Search: https://func-app-demo-8685.azurewebsites.net/api/stock/search/Microsoft
+
+## Lessons Learned & Best Practices
+
+### ✅ Key Takeaways
+1. **Azure Functions v4 Structure**: Functions must be in root directory with proper `index.js` entry point
+2. **Exit Codes Matter**: GitHub Actions fails on any non-zero exit code - fix test scripts accordingly
+3. **Environment Consistency**: Match GitHub Actions runner OS with Azure Function App OS (Linux vs Windows)
+4. **Local vs Production**: Some features (like timer triggers) behave differently locally vs in Azure
+5. **Error Handling**: Always implement proper error handling with appropriate HTTP status codes
+6. **Caching**: Add cache headers for APIs that don't change frequently (stock data, etc.)
+
+### 🚀 Production Recommendations
+1. **Add proper tests** instead of skipping them
+2. **Implement authentication** for sensitive endpoints
+3. **Add rate limiting** for external API calls (yahoo-finance2)
+4. **Set up monitoring** and alerts using Application Insights
+5. **Use Azure Key Vault** for sensitive configuration
+6. **Implement CORS** if accessed from web applications
+
+### 🔄 CI/CD Best Practices
+1. **Use environment-specific configurations** (dev/staging/prod)
+2. **Implement proper testing strategy** (unit, integration, e2e)
+3. **Add security scanning** to GitHub Actions workflow
+4. **Use Azure RBAC** instead of publish profiles for enhanced security
+5. **Implement blue-green deployments** for zero-downtime updates
+
+### 📊 Monitoring & Observability
+- **Application Insights**: Monitor function performance and errors
+- **Custom logging**: Add structured logging for better debugging
+- **Health checks**: Implement comprehensive health monitoring
+- **Metrics**: Track custom business metrics (API usage, response times)
+
+## Clean Up
+
+To delete all Azure resources when done:
+```bash
+az group delete --name rg-function-app-demo --yes --no-wait
+```
+
+---
+
+**Built with ❤️ using Azure Functions v4, Node.js 20, and GitHub Actions**
