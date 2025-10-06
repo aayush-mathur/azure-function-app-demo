@@ -1,28 +1,63 @@
-{
-  "name": "azure-function-app-demo",
-  "version": "1.0.0",
-  "description": "Azure Functions Node.js demo application",
-  "main": "index.js",
-  "scripts": {
-    "start": "func start",
-    "test": "echo \"No tests specified - skipping test phase\""
-  },
-  "dependencies": {
-    "@azure/functions": "^4.0.0",
-    "yahoo-finance2": "^2.13.3"
-  },
-  "devDependencies": {
-    "azure-functions-core-tools": "^4.0.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "keywords": [
-    "azure",
-    "functions",
-    "nodejs",
-    "serverless"
-  ],
+{{
+
+  "name": "azure-function-app-demo",  "name": "azure-function-app-demo",
+
+  "version": "1.0.0",  "version": "1.0.0",
+
+  "description": "Full-stack Azure Function App demo with React frontend and Node.js backend",  "description": "Azure Functions Node.js demo application",
+
+  "private": true,  "main": "index.js",
+
+  "workspaces": [  "scripts": {
+
+    "backend",    "start": "func start",
+
+    "frontend"    "test": "echo \"No tests specified - skipping test phase\""
+
+  ],  },
+
+  "scripts": {  "dependencies": {
+
+    "install:backend": "cd backend && npm install",    "@azure/functions": "^4.0.0",
+
+    "install:frontend": "cd frontend && npm install",    "yahoo-finance2": "^2.13.3"
+
+    "install:all": "npm run install:backend && npm run install:frontend",  },
+
+    "start:backend": "cd backend && npm start",  "devDependencies": {
+
+    "start:frontend": "cd frontend && npm start",    "azure-functions-core-tools": "^4.0.0"
+
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\""  },
+
+  },  "engines": {
+
+  "devDependencies": {    "node": ">=18.0.0"
+
+    "concurrently": "^8.2.0"  },
+
+  },  "keywords": [
+
+  "keywords": [    "azure",
+
+    "azure",    "functions",
+
+    "functions",    "nodejs",
+
+    "react",    "serverless"
+
+    "static-web-apps",  ],
+
+    "serverless",  "author": "",
+
+    "full-stack"  "license": "MIT"
+
+  ],}
+
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aayush-mathur/azure-function-app-demo.git"
+  }
 }

@@ -150,12 +150,13 @@ az staticwebapp create --name swa-function-app-demo --resource-group rg-function
 
 #### Backend (Azure Functions)
 - **Trigger**: Push to `main` branch
-- **Workflow**: `.github/workflows/main_func-app-demo-8685.yml`
+- **Workflow**: `.github/workflows/azure-functions-app-nodejs.yml`
 - **Runner**: Ubuntu (Linux) to match Azure Function App OS
+- **Package Path**: `./backend` (organized backend structure)
 - **Steps**: 
   1. Checkout code
   2. Setup Node.js 20
-  3. Install dependencies (`npm install`)
+  3. Install dependencies (`npm install` in backend directory)
   4. Run tests (skipped - no tests defined)
   5. Deploy to Azure using publish profile
 
@@ -187,27 +188,30 @@ az staticwebapp secrets list --name swa-function-app-demo --query "properties.ap
 azure-function-app-demo/
 ├── .github/
 │   └── workflows/
-│       ├── main_func-app-demo-8685.yml    # Backend deployment
-│       └── azure-static-web-apps.yml      # Frontend deployment
-├── frontend/                               # React frontend application
+│       ├── azure-functions-app-nodejs.yml     # Backend deployment
+│       └── azure-static-web-apps.yml          # Frontend deployment
+├── backend/                                    # Azure Functions backend
+│   ├── apiEndpoints.js                        # REST API demo functions
+│   ├── demoFunctions.js                       # Basic HTTP and timer functions
+│   ├── stockFunctions.js                      # Stock market data functions
+│   ├── index.js                               # Main entry point
+│   ├── host.json                              # Function app configuration
+│   ├── local.settings.json                    # Local development settings
+│   ├── package.json                           # Backend dependencies and scripts
+│   ├── package-lock.json                      # Backend dependency lock file
+│   └── node_modules/                          # Backend dependencies
+├── frontend/                                   # React frontend application
 │   ├── public/
-│   │   └── index.html                     # HTML template
+│   │   └── index.html                         # HTML template
 │   ├── src/
-│   │   ├── App.js                         # Main React component
-│   │   ├── App.css                        # Styling
-│   │   └── index.js                       # React entry point
-│   └── package.json                       # Frontend dependencies
-├── .gitignore                             # Git ignore rules
-├── AZURE_RESOURCES.md                     # Azure resources documentation
-├── README.md                              # This file
-├── apiEndpoints.js                        # REST API demo functions
-├── demoFunctions.js                       # Basic HTTP and timer functions
-├── stockFunctions.js                      # Stock market data functions
-├── host.json                              # Function app configuration (includes CORS)
-├── index.js                               # Main entry point
-├── local.settings.json                    # Local development settings
-├── package.json                           # Backend dependencies and scripts
-└── package-lock.json                      # Dependency lock file
+│   │   ├── App.js                             # Main React component
+│   │   ├── App.css                            # Styling
+│   │   └── index.js                           # React entry point
+│   ├── package.json                           # Frontend dependencies
+│   └── node_modules/                          # Frontend dependencies
+├── .gitignore                                 # Git ignore rules
+├── AZURE_RESOURCES.md                         # Azure resources documentation
+└── README.md                                  # This file
 ```
 
 ## Local Development
@@ -219,6 +223,9 @@ azure-function-app-demo/
 
 ### Backend Setup
 ```bash
+# Navigate to backend directory
+cd backend
+
 # Install backend dependencies
 npm install
 
@@ -241,8 +248,8 @@ npm start
 ```
 
 ### Full-Stack Local Development
-1. **Terminal 1**: Start Azure Functions backend (`func start`)
-2. **Terminal 2**: Start React frontend (`cd frontend && npm start`)
+1. **Terminal 1**: Navigate to `/backend` and start Azure Functions (`func start`)
+2. **Terminal 2**: Navigate to `/frontend` and start React app (`npm start`)
 3. **Access**: Frontend at http://localhost:3000, Backend at http://localhost:7071
 
 ### Test Endpoints

@@ -1,0 +1,28 @@
+{
+  "name": "azure-function-app-demo",
+  "version": "1.0.0",
+  "description": "Azure Functions Node.js demo application",
+  "main": "index.js",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests specified - skipping test phase\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "yahoo-finance2": "^2.13.3"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "azure",
+    "functions",
+    "nodejs",
+    "serverless"
+  ],
+  "author": "",
+  "license": "MIT"
+}
