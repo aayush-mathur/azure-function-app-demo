@@ -1,0 +1,394 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.App-header {
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.App-header p {
+  margin: 10px 0 0 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.App-main {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.card h2 {
+  margin: 0 0 20px 0;
+  color: #4a5568;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.health-status {
+  text-align: left;
+}
+
+.health-status p {
+  margin: 10px 0;
+  padding: 8px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 4px solid #48bb78;
+}
+
+.status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.status.healthy {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.input-group input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-group button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.input-group button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.input-group button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  background: #fed7d7;
+  color: #c53030;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border-left: 4px solid #e53e3e;
+}
+
+.search-results {
+  margin-top: 20px;
+}
+
+.search-results h3 {
+  color: #4a5568;
+  margin-bottom: 15px;
+}
+
+.results-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.result-item {
+  background: #f7fafc;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  text-align: left;
+}
+
+.result-item:hover {
+  background: #edf2f7;
+  border-color: #667eea;
+  transform: translateY(-2px);
+}
+
+.result-item strong {
+  color: #2d3748;
+  font-size: 1.1rem;
+}
+
+.result-item p {
+  margin: 5px 0;
+  color: #4a5568;
+}
+
+.result-item small {
+  color: #718096;
+}
+
+.stock-data {
+  text-align: left;
+}
+
+.stock-header {
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.stock-header h3 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1.4rem;
+}
+
+.symbol {
+  color: #718096;
+  font-weight: 600;
+  margin: 5px 0 0 0;
+}
+
+.price-section {
+  margin-bottom: 25px;
+}
+
+.current-price {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.change {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.change.positive {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.change.negative {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.stock-details {
+  background: #f7fafc;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row span:first-child {
+  color: #718096;
+  font-weight: 500;
+}
+
+.detail-row span:last-child {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.historical-data {
+  background: #f7fafc;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.historical-data h4 {
+  margin: 0 0 15px 0;
+  color: #4a5568;
+}
+
+.historical-table {
+  display: grid;
+  gap: 8px;
+}
+
+.historical-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.historical-row .date {
+  color: #718096;
+  font-weight: 500;
+}
+
+.historical-row .close {
+  color: #2d3748;
+  font-weight: 600;
+  text-align: center;
+}
+
+.historical-row .volume {
+  color: #4a5568;
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.endpoints {
+  display: grid;
+  gap: 10px;
+}
+
+.endpoint {
+  background: #f7fafc;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: left;
+  border-left: 4px solid #667eea;
+}
+
+.endpoint strong {
+  background: #667eea;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-right: 10px;
+}
+
+.endpoint code {
+  background: #e2e8f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Consolas', monospace;
+  color: #2d3748;
+}
+
+.App-footer {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 40px;
+}
+
+.App-footer p {
+  margin: 5px 0;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .App-main {
+    grid-template-columns: 1fr;
+    padding: 20px 10px;
+  }
+  
+  .card {
+    padding: 20px;
+  }
+  
+  .App-header h1 {
+    font-size: 2rem;
+  }
+  
+  .current-price {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .price {
+    font-size: 1.5rem;
+  }
+  
+  .historical-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  
+  .historical-row .close,
+  .historical-row .volume {
+    text-align: left;
+  }
+  
+  .input-group {
+    flex-direction: column;
+  }
+  
+  .input-group input {
+    min-width: auto;
+  }
+}
