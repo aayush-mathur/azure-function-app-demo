@@ -20,6 +20,20 @@ A demonstration Azure Function App built with Node.js and Azure Functions v4.
    - Methods: GET, POST, PUT, DELETE
    - Demonstrates different HTTP methods with sample CRUD operations
 
+4. **stockData** - Real-time stock data using yahoo-finance2
+   - Endpoint: `/api/stock/{symbol?}`
+   - Method: GET
+   - Parameters: `symbol` (path or query parameter, defaults to AAPL)
+   - Returns: Current quote data and 5-day historical data
+   - Example: `/api/stock/MSFT` or `/api/stock?symbol=TSLA`
+
+5. **stockSearch** - Stock symbol search
+   - Endpoint: `/api/stock/search/{query?}`
+   - Method: GET
+   - Parameters: `query` (path parameter) or `q` (query parameter)
+   - Returns: Search results for stock symbols
+   - Example: `/api/stock/search/Microsoft` or `/api/stock/search?q=Tesla`
+
 ### Timer Triggered Functions
 1. **timerTrigger** - Scheduled function
    - Schedule: Every 5 minutes
@@ -49,6 +63,8 @@ Once running locally:
 - Health Check: http://localhost:7071/api/health
 - HTTP Trigger: http://localhost:7071/api/httpTrigger?name=YourName
 - Demo API: http://localhost:7071/api/api (or /api/123 for specific ID)
+- Stock Data: http://localhost:7071/api/stock/AAPL
+- Stock Search: http://localhost:7071/api/stock/search/Apple
 
 ## Deployment
 
@@ -78,3 +94,5 @@ Test the deployed function at:
 - Base URL: https://func-app-demo-8685.azurewebsites.net
 - Health: https://func-app-demo-8685.azurewebsites.net/api/health
 - HTTP Trigger: https://func-app-demo-8685.azurewebsites.net/api/httpTrigger?name=Azure
+- Stock Data: https://func-app-demo-8685.azurewebsites.net/api/stock/AAPL
+- Stock Search: https://func-app-demo-8685.azurewebsites.net/api/stock/search/Microsoft

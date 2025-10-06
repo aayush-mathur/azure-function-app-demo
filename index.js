@@ -4,3 +4,4 @@
 // Import all function modules
 require('./demoFunctions');
 require('./apiEndpoints');
+require('./stockFunctions');
