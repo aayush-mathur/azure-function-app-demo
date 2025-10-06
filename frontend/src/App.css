@@ -312,6 +312,28 @@
   gap: 10px;
 }
 
+.api-debug {
+  background: #f0f4f8;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #4299e1;
+}
+
+.api-debug p {
+  margin: 5px 0;
+  color: #2d3748;
+}
+
+.api-debug code {
+  background: #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Consolas', monospace;
+  color: #1a202c;
+  font-weight: 600;
+}
+
 .endpoint {
   background: #f7fafc;
   padding: 15px;

@@ -35,15 +35,21 @@ function App() {
     setLoading(true);
     setError(null);
     try {
+      console.log(`Fetching stock data for: ${stockSymbol}`);
       const response = await fetch(`${API_BASE_URL}/api/stock/${stockSymbol.toUpperCase()}`);
+      console.log(`Response status: ${response.status}`);
+      
       const data = await response.json();
+      console.log('Response data:', data);
       
       if (response.ok) {
         setStockData(data);
       } else {
+        console.error('API Error:', data);
         setError(data.message || 'Failed to fetch stock data');
       }
     } catch (err) {
+      console.error('Network Error:', err);
       setError('Network error: ' + err.message);
     } finally {
       setLoading(false);
@@ -56,15 +62,21 @@ function App() {
     setLoading(true);
     setError(null);
     try {
+      console.log(`Searching for: ${searchQuery}`);
       const response = await fetch(`${API_BASE_URL}/api/stock/search/${encodeURIComponent(searchQuery)}`);
+      console.log(`Search response status: ${response.status}`);
+      
       const data = await response.json();
+      console.log('Search response data:', data);
       
       if (response.ok) {
         setSearchResults(data);
       } else {
+        console.error('Search API Error:', data);
         setError(data.message || 'Failed to search stocks');
       }
     } catch (err) {
+      console.error('Search Network Error:', err);
       setError('Network error: ' + err.message);
     } finally {
       setLoading(false);
@@ -151,6 +163,12 @@ function App() {
           {error && (
             <div className="error">
               ❌ {error}
+              <button 
+                style={{marginLeft: '10px', padding: '4px 8px', fontSize: '0.8rem'}}
+                onClick={() => setError(null)}
+              >
+                Clear
+              </button>
             </div>
           )}
 
@@ -216,6 +234,10 @@ function App() {
         {/* API Endpoints */}
         <section className="card">
           <h2>🔗 Available API Endpoints</h2>
+          <div className="api-debug">
+            <p><strong>API Base URL:</strong> <code>{API_BASE_URL || 'Relative URLs (production)'}</code></p>
+            <p><strong>Environment:</strong> <code>{process.env.NODE_ENV}</code></p>
+          </div>
           <div className="endpoints">
             <div className="endpoint">
               <strong>GET</strong> <code>/api/health</code> - System health check
